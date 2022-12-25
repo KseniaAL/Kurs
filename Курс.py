@@ -62,8 +62,8 @@ def list_pharmacy_on_name_medicine():
     for record in data:
         record = record.split("|")
         if medicine == record[1] and int(record[3]) > 0:
-            result_list += record[0]
-    label_pharmacies["text"] = f"Список аптек: {' '.join(result_list)}"
+            result_list += record[0] + "\n"
+    label_pharmacies["text"] = f"Список аптек: {''.join(result_list)}"
 
 
 def get_the_cheapest():

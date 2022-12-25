@@ -52,7 +52,7 @@ def save_file():
         file.write(content)
     read_table_dat()
 
-
+#1
 def timetable_for_teacher():
     data = read_table_dat()
     surname = entry_surname.get()
@@ -87,7 +87,35 @@ label_table = tk.Label(window, text="Расписание на неделе:")
 label_table.place(x=750, y=50)
 button_1 = tk.Button(window, text="Узнать расписание", command=timetable_for_teacher)
 button_1.place(x=450, y=75)
-
+#2
+label_group = tk.Label(window, text = "Номер группы:")
+label_group.place(x = 450, y = 150)
+entry_group = tk.Entry(window)
+entry_group.place(x = 550, y = 150)
+label_time = tk.Label(window, text = "Время начала занятия:")
+label_time.place(x = 450, y = 175)
+entry_time = tk.Entry(window)
+entry_time.place(x = 590, y = 175)
 generate_table_dat(12)
+label_cab = tk.Label(window, text = "Номер аудитории:")
+label_cab.place(x = 750, y = 150)
+#3
+label_surname3 = tk.Label(window, text = "Фамилия преподавателя:")
+label_surname3.place(x=450, y = 225)
+entry_surname3 = tk.Entry(window)
+entry_surname3.place(x = 600, y = 225)
+label_weekend = tk.Label(window, text = "Выходные:")
+label_weekend.place(x = 750, y = 225)
+#4
+label_day = tk.Label(window, text = "День недели:")
+label_day.place(x = 450, y = 275)
+entry_day = tk.Entry(window)
+entry_day.place(x = 530, y = 275)
+label_cab4 = tk.Label(window, text = "Номер аудитории:")
+label_cab4.place(x=450, y = 300)
+entry_cab4 = tk.Entry(window)
+entry_cab4.place(x = 560, y = 300)
+label_group4 = tk.Label(window, text = "Группы:")
+label_group4.place(x=750, y = 300)
 print(read_table_dat())
 window.mainloop()
