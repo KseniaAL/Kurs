@@ -20,7 +20,7 @@ def generate_table_dat(count_row: int) -> None:
     cab = ["123", "435", "564", "321", "567", "233", "345"]
     surnames = ["Иванов", "Петров", "Сидоров", "Пароходов", "Орлов", "Маринина", "Катышев"]
     for i in range(count_row):
-        text += f"00{i}|{random.choice(days)}|{random.choice(times)}|{random.choice(subjects)}|{random.choice(cab)}|{random.choice(surnames)}\n"
+        text += f"{random.randint(1,10)}|{random.choice(days)}|{random.choice(times)}|{random.choice(subjects)}|{random.choice(cab)}|{random.choice(surnames)}\n"
 
     with open("table.dat", "w", encoding="windows-1251") as f:
         f.write(text)
@@ -65,9 +65,46 @@ def timetable_for_teacher():
     label_table["text"] = f"{' '.join(result_list)}"
 
 
+def number_of_cab():
+    group = entry_group.get()
+    day = entry_day.get()
+    time = entry_time.get()
+    data = read_table_dat()
+    for record in data:
+        record = record.split("|")
+        if group==record[0] and day==record[1] and time==record[2]:
+            label_cab["text"] = f"Номер аудитории:{record[4]}"
+
+
+def weekend():
+    surname = entry_surname3.get()
+    data = read_table_dat()
+
+    days_weekend = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
+    for record in data:
+        record = record.split("|")
+        if record[5] == surname:
+            days_weekend.remove(record[1])
+    label_weekend["text"] = f"Выходные:{' '.join(days_weekend)}"
+
+
+def list_group():
+    day = entry_day4.get()
+    cab = entry_cab4.get()
+    data = read_table_dat()
+    numbers_group = []
+    for record in data:
+        record = record.split("|")
+        if day==record[1] and cab==record[4]:
+            numbers_group.append(record[0])
+    label_group4["text"] = f"Группы:{'  '.join(numbers_group)}"
+
+
+
+
 window = tk.Tk()
 window.title("Расписание занятий")
-window.geometry("1000x800")
+window.geometry("1200x800")
 
 text = tk.Text(window, width=50, height=100)
 text.place(x=0, y=0)
@@ -87,18 +124,29 @@ label_table = tk.Label(window, text="Расписание на неделе:")
 label_table.place(x=750, y=50)
 button_1 = tk.Button(window, text="Узнать расписание", command=timetable_for_teacher)
 button_1.place(x=450, y=75)
+
 #2
 label_group = tk.Label(window, text = "Номер группы:")
-label_group.place(x = 450, y = 150)
+label_group.place(x = 450, y = 125)
 entry_group = tk.Entry(window)
-entry_group.place(x = 550, y = 150)
+entry_group.place(x = 550, y = 125)
+
+label_day = tk.Label(window, text = "День занятия:")
+label_day.place(x = 450, y = 150)
+entry_day = tk.Entry(window)
+entry_day.place(x = 590, y = 150)
+
 label_time = tk.Label(window, text = "Время начала занятия:")
 label_time.place(x = 450, y = 175)
 entry_time = tk.Entry(window)
 entry_time.place(x = 590, y = 175)
-generate_table_dat(12)
+
+
 label_cab = tk.Label(window, text = "Номер аудитории:")
 label_cab.place(x = 750, y = 150)
+
+button_2 = tk.Button(window, text="Узнать расписание", command=number_of_cab)
+button_2.place(x=750, y = 175)
 #3
 label_surname3 = tk.Label(window, text = "Фамилия преподавателя:")
 label_surname3.place(x=450, y = 225)
@@ -106,16 +154,21 @@ entry_surname3 = tk.Entry(window)
 entry_surname3.place(x = 600, y = 225)
 label_weekend = tk.Label(window, text = "Выходные:")
 label_weekend.place(x = 750, y = 225)
+button_3 = tk.Button(window, text="Узнать выходные", command=weekend)
+button_3.place(x=750, y = 250)
 #4
-label_day = tk.Label(window, text = "День недели:")
-label_day.place(x = 450, y = 275)
-entry_day = tk.Entry(window)
-entry_day.place(x = 530, y = 275)
+label_day4 = tk.Label(window, text = "День недели:")
+label_day4.place(x = 450, y = 325)
+entry_day4 = tk.Entry(window)
+entry_day4.place(x = 530, y = 325)
 label_cab4 = tk.Label(window, text = "Номер аудитории:")
-label_cab4.place(x=450, y = 300)
+label_cab4.place(x=450, y = 350)
 entry_cab4 = tk.Entry(window)
-entry_cab4.place(x = 560, y = 300)
+entry_cab4.place(x = 560, y = 350)
 label_group4 = tk.Label(window, text = "Группы:")
 label_group4.place(x=750, y = 300)
-print(read_table_dat())
+button_4 = tk.Button(window, text="Узнать группы", command=list_group)
+button_4.place(x=750, y = 325)
+# generate_table_dat(12)
+
 window.mainloop()
